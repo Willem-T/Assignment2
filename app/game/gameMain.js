@@ -8,11 +8,10 @@ export default function Page(){
     const [score, setScore] = useState(0);
     const [life, setLife ] = useState(3);
     const [ mole, setMole ] = useState(Array(9).fill(false));
-    const [timerActive, setTimerActive] = useState(false);
-
+    //const [timerActive, setTimerActive] = useState(0);
         // Run the random timer when the component mounts
         useEffect(() => {
-            runRandomTimer();
+            runRandomTimer(2);//stub could use this as part of the difficulty
         }, []);
 
     //handle the onPress event
@@ -37,26 +36,31 @@ export default function Page(){
         }
     }
 
-    const runRandomTimer = () => {
-        const newMole = [...mole];
-    
-        // Generate random positions for moles
-        const indexes = [];
-        while (indexes.length < 2) {
-          const randomIndex = Math.floor(Math.random() * 9);
-          if (!indexes.includes(randomIndex)) {
-            indexes.push(randomIndex);
-            newMole[randomIndex] = true;
-            setTimeout(() => {
-              newMole[randomIndex] = false;
-              setMole([...newMole]);
-              runRandomTimer();
-            }, 5000); // 5 seconds timer for each mole
-          }
-        }
-    
-        setMole(newMole);
-      };
+    function runRandomTimer(param) {
+      for(i = 0; i < param; i++){
+
+        //needs a check for already set timers
+      const randomIndex = Math.floor(Math.random() * mole.length);
+          // Generate a random timer for each mole
+          setTimeout(() => {
+              setMole(mole => {
+                  const newMole = [...mole];
+                  newMole[randomIndex] = true;
+                  return newMole;
+              });
+
+              // Set a timeout to make the mole disappear after a certain time
+              setTimeout(() => {
+                  setMole(mole => {
+                      const newMole = [...mole];
+                      newMole[randomIndex] = false;
+                      runRandomTimer(1);//THIS NEEDS TO BE 1
+                      return newMole;
+                  });
+              }, 3000); // This can be adjusted as per your requirement
+          }, Math.floor(Math.random() * 2000) + 1000); // Random delay for each mole
+  }
+}
 
     // function runRandomTimer() {
     //     //MAKES SURE TO NOT RUN MULTIPLE TIMERS
