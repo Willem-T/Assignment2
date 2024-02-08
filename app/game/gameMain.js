@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import Styles from '../styles/gameStyle.js';
 import {Text, View, Button, Pressable} from 'react-native';
-import { Link,} from 'expo-router';
+import { Link, useNavigation,} from 'expo-router';
 
 
 export default function Page(){
@@ -9,6 +9,7 @@ export default function Page(){
     const [life, setLife ] = useState(3);
     const [ mole, setMole ] = useState(false);
     const [timerActive, setTimerActive] = useState(false);
+    const navigation = useNavigation();
 
         // Run the random timer when the component mounts
         useEffect(() => {
@@ -26,6 +27,10 @@ export default function Page(){
         else{
             //needs some logic for 0
             setLife(f => f -1);
+            if(life < 1){
+                //go to gameEnd.js
+                
+            }
         }
     }
 

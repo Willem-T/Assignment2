@@ -1,40 +1,37 @@
 import { StyleSheet } from "react-native";
 
-
 const styles = StyleSheet.create({
     container: {
         flex: 1,
+        justifyContent: 'center',
+        alignItems: 'center',
         backgroundColor: '#fff',
-        alignItems: 'center',
-        justifyContent: 'center',
       },
-    score: {
-        fontSize: 35,
-        textAlign: 'center',
-    },
-    backButton: {
-        width: '30%',
-    },
-    buttonRow: {
+      score: {
+        fontSize: 20,
+        marginBottom: 10,
+      },
+      buttonRow: {
         flexDirection: 'row',
-        justifyContent: 'center',
-        alignItems: 'center',
+        flexWrap: 'wrap',
+        width: 200,
+        justifyContent: 'space-between',
+        marginBottom: 20,
       },
       buttonBox: {
-        height: 70,
-        width: 70,
-        borderRadius: 5,
-        margin: 3,
-        padding: 10,
-        backgroundColor: 'black',
+        width: 60,
+        height: 60,
+        backgroundColor: 'lightgray',
+        marginBottom: 10,
       },
       mole: {
-        height: 70,
-        width: 70,
-        borderRadius: 5,
-        margin: 3,
-        padding: 10,
+        width: 60,
+        height: 60,
         backgroundColor: 'brown',
+        marginBottom: 10,
+      },
+      backButton: {
+        marginTop: 20,
       }
 });
 
