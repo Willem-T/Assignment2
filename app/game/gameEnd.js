@@ -1,5 +1,5 @@
 import {Text, View, Button,} from 'react-native';
-import Styles from './styles/indexStyle.js';
+//import Styles from './styles/indexStyle.js';
 import { Link, useLocalSearchParams} from 'expo-router';
 import React from 'react';
 

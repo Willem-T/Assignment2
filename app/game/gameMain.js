@@ -7,9 +7,8 @@ import { Link, useNavigation,} from 'expo-router';
 export default function Page(){
     const [score, setScore] = useState(0);
     const [life, setLife ] = useState(3);
-    const [ mole, setMole ] = useState(false);
+    const [ mole, setMole ] = useState(Array(9).fill(false));
     const [timerActive, setTimerActive] = useState(false);
-    const navigation = useNavigation();
 
         // Run the random timer when the component mounts
         useEffect(() => {
@@ -17,11 +16,15 @@ export default function Page(){
         }, []);
 
     //handle the onPress event
-    const handlePress = () => {
+    const handlePress = (index) => {
         //mole is there
-        if(mole){
+        if(mole[index]){
             setScore(f => f +1);
-            setMole(false);
+            //find the mole
+            const specificMole = [...mole];
+            //deal with the mole
+            specificMole[index] = false;
+            setMole(specificMole);
         }
         //bros gone
         else{
@@ -34,34 +37,55 @@ export default function Page(){
         }
     }
 
-    function runRandomTimer() {
-        //MAKES SURE TO NOT RUN MULTIPLE TIMERS
-        if (timerActive) return;
-
-        //mole delay for time before he appears
-        const moleDelay = Math.floor(Math.random() * 5000) + 1000;
-
-        //speed
-        const speed = 4000; //needs a multiplier
-
-        setTimerActive(true);
-
-        setTimeout(() => {
-            setMole(true);
-            //timeout to make the mole disapear
+    const runRandomTimer = () => {
+        const newMole = [...mole];
+    
+        // Generate random positions for moles
+        const indexes = [];
+        while (indexes.length < 2) {
+          const randomIndex = Math.floor(Math.random() * 9);
+          if (!indexes.includes(randomIndex)) {
+            indexes.push(randomIndex);
+            newMole[randomIndex] = true;
             setTimeout(() => {
-                setTimerActive(false); //enable timers
+              newMole[randomIndex] = false;
+              setMole([...newMole]);
+              runRandomTimer();
+            }, 5000); // 5 seconds timer for each mole
+          }
+        }
+    
+        setMole(newMole);
+      };
 
-                //JS sucks and this is fucking broken
-                //has something todo with callbacks not being updated
-                // if (!mole) { //might change this later if its too hard
-                //     setLife(f => f -1);
-                // }
-                setMole(false); 
-                runRandomTimer(); 
-            }, speed); //set this to a speed var
-        }, moleDelay);
-    }
+    // function runRandomTimer() {
+    //     //MAKES SURE TO NOT RUN MULTIPLE TIMERS
+    //     if (timerActive) return;
+
+    //     //mole delay for time before he appears
+    //     const moleDelay = Math.floor(Math.random() * 5000) + 1000;
+
+    //     //speed
+    //     const speed = 4000; //needs a multiplier
+
+    //     setTimerActive(true);
+
+    //     setTimeout(() => {
+    //         setMole(true);
+    //         //timeout to make the mole disapear
+    //         setTimeout(() => {
+    //             setTimerActive(false); //enable timers
+
+    //             //JS sucks and this is fucking broken
+    //             //has something todo with callbacks not being updated
+    //             // if (!mole) { //might change this later if its too hard
+    //             //     setLife(f => f -1);
+    //             // }
+    //             setMole(false); 
+    //             runRandomTimer(); 
+    //         }, speed); //set this to a speed var
+    //     }, moleDelay);
+    // }
 
     return (
         
@@ -71,7 +95,12 @@ export default function Page(){
             <Text style={Styles.score}>Life: {life}</Text>
  
             <View style={Styles.buttonRow}>
-            <Pressable style={mole === true ? Styles.mole : Styles.buttonBox} onPress={() => handlePress()}/>
+            {mole.map((mole, index) => (
+          <Pressable
+            key={index}
+            style={mole ? Styles.mole : Styles.buttonBox}
+            onPress={() => handlePress(index)}
+          />))}
             </View>
             {/* Linked Buttons */}
             <View style={Styles.backButton} >
