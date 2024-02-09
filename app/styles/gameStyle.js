@@ -24,14 +24,18 @@ const styles = StyleSheet.create({
         backgroundColor: 'lightgray',
         marginBottom: 10,
       },
-      mole: {
+      hole: {
         width: 60,
         height: 60,
-        backgroundColor: 'brown',
         marginBottom: 10,
+        //backgroundColor: 'black',//for testimg
       },
       backButton: {
         marginTop: 20,
+      },
+      moleImage: {
+        width: 60,
+        height: 60,
       }
 });
 

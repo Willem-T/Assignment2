@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import Styles from '../styles/gameStyle.js';
-import {Text, View, Button, Pressable} from 'react-native';
-import { Link, useNavigation,} from 'expo-router';
+import {Text, View, Button, Pressable, Image} from 'react-native';
+import { Link, } from 'expo-router';
 
 
 export default function Page(){
@@ -62,35 +62,8 @@ export default function Page(){
   }
 }
 
-    // function runRandomTimer() {
-    //     //MAKES SURE TO NOT RUN MULTIPLE TIMERS
-    //     if (timerActive) return;
-
-    //     //mole delay for time before he appears
-    //     const moleDelay = Math.floor(Math.random() * 5000) + 1000;
-
-    //     //speed
-    //     const speed = 4000; //needs a multiplier
-
-    //     setTimerActive(true);
-
-    //     setTimeout(() => {
-    //         setMole(true);
-    //         //timeout to make the mole disapear
-    //         setTimeout(() => {
-    //             setTimerActive(false); //enable timers
-
-    //             //JS sucks and this is fucking broken
-    //             //has something todo with callbacks not being updated
-    //             // if (!mole) { //might change this later if its too hard
-    //             //     setLife(f => f -1);
-    //             // }
-    //             setMole(false); 
-    //             runRandomTimer(); 
-    //         }, speed); //set this to a speed var
-    //     }, moleDelay);
-    // }
-
+// Check lives
+if(life > 0){
     return (
         
         <View style={Styles.container}>
@@ -102,9 +75,14 @@ export default function Page(){
             {mole.map((mole, index) => (
           <Pressable
             key={index}
-            style={mole ? Styles.mole : Styles.buttonBox}
+            style={Styles.hole}
             onPress={() => handlePress(index)}
-          />))}
+          >
+            <Image
+            source={mole ? require('../images/mole.png') : require('../images/noMole.png')}
+            style={Styles.moleImage}
+            />
+          </Pressable>))}
             </View>
             {/* Linked Buttons */}
             <View style={Styles.backButton} >
@@ -121,5 +99,30 @@ export default function Page(){
         //pass score to gameEnd.js
         // Stop?
     )
+  }
+  else {
+    return (
+        
+      <View style={Styles.container}>
+          {/* Score */}
+          <Text style={Styles.score}>Score: {score}</Text>
+
+          <Text>Game Over</Text>
+          {/* Linked Buttons */}
+          <View style={Styles.backButton} >
+          <Link href={{
+              pathname: "/",
+              params: {},
+              }} asChild>
+          <Button
+          title='Go Back'/>
+          </Link>
+          </View>
+
+      </View>
+      //pass score to gameEnd.js
+      // Stop?
+  )
+  }
 }
 
