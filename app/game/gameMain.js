@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import Styles from '../styles/gameStyle.js';
-import {Text, View, Button, Pressable, Image} from 'react-native';
+import {Text, View, Button, Pressable, Image, ImageBackground} from 'react-native';
 import { Link, } from 'expo-router';
 
 
@@ -8,7 +8,6 @@ export default function Page(){
     const [score, setScore] = useState(0);
     const [life, setLife ] = useState(3);
     const [ mole, setMole ] = useState(Array(9).fill(false));
-    //const [timerActive, setTimerActive] = useState(0);
         // Run the random timer when the component mounts
         useEffect(() => {
             runRandomTimer(2);//stub could use this as part of the difficulty
@@ -65,7 +64,10 @@ export default function Page(){
 // Check lives
 if(life > 0){
     return (
-        
+        <ImageBackground
+        source={require('../images/background.png')}
+        style={Styles.backgroundImage}
+        >
         <View style={Styles.container}>
             {/* Score */}
             <Text style={Styles.score}>Score: {score}</Text>
@@ -91,18 +93,20 @@ if(life > 0){
                 params: {},
                 }} asChild>
             <Button
-            title='Go Back'/>
+            title='Exit'/>
             </Link>
             </View>
 
         </View>
-        //pass score to gameEnd.js
-        // Stop?
+        </ImageBackground>
     )
   }
   else {
     return (
-        
+      <ImageBackground
+      source={require('../images/background.png')}
+      style={Styles.backgroundImage}
+      >
       <View style={Styles.container}>
           {/* Score */}
           <Text style={Styles.score}>Score: {score}</Text>
@@ -120,8 +124,7 @@ if(life > 0){
           </View>
 
       </View>
-      //pass score to gameEnd.js
-      // Stop?
+      </ImageBackground>
   )
   }
 }
