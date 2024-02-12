@@ -113,8 +113,9 @@ export default function Page() {
         const params = useLocalSearchParams();
         const { name } = params;
 
+        //check for if they set name
         const leaderboardData = [
-            { name: name, score: score },
+            { name: name == '' ? "guest" : name, score: score },
         ];
 
         return (
