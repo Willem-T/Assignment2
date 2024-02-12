@@ -6,8 +6,10 @@ Desciption:   A simple game of whack a mole
 TODO:       
               debug timers so you can subtract life or score(prolly score)
               attempt to move logic to its own file
+              background is doing wierd shit when the keyboard is pulled up so fix that
+              fix the pressable hitboxes 
 */ 
-import {Text, View, Button, ImageBackground, TextInput, Pressable} from 'react-native';
+import {Text, View, ImageBackground, TextInput, Pressable} from 'react-native';
 import Styles from './styles/indexStyle.js';
 import { Link,} from 'expo-router';
 import React from 'react';

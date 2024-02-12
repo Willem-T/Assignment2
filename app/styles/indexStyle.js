@@ -40,6 +40,7 @@ const styles = StyleSheet.create({
         elevation: 2,
     },
     input: {
+        fontSize: 30,
         width: '80%',
         textAlign: 'center',
         borderWidth: 2,

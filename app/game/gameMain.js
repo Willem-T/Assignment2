@@ -1,159 +1,160 @@
 import React, { useState, useEffect } from 'react';
 import Styles from '../styles/gameStyle.js';
-import {Text, View, Button, Pressable, Image, ImageBackground} from 'react-native';
+import { Text, View, Button, Pressable, Image, ImageBackground } from 'react-native';
 import { Link, useLocalSearchParams } from 'expo-router';
 
 
-export default function Page(){
+export default function Page() {
     //difficulty passed logic
     const params = useLocalSearchParams();
-    const {difficulty} = params;
+    const { difficulty } = params;
     //console.log(difficulty)
 
     const [score, setScore] = useState(0);
-    const [life, setLife ] = useState(3);
-    const [ mole, setMole ] = useState(Array(9).fill(false));
-        // Run the random timer when the component mounts
-        useEffect(() => {
-            runRandomTimer(difficulty);//should spawn based off the diff param
-        }, []);
+    const [life, setLife] = useState(3);
+    const [mole, setMole] = useState(Array(9).fill(false));
+    // Run the random timer when the component mounts
+    useEffect(() => {
+        runRandomTimer(difficulty);//should spawn based off the diff param
+    }, []);
 
-    //handle the onPress event
-    const handlePress = (index) => {
-        //mole is there
-        if(mole[index]){
-            setScore(f => f +1);
-            //find the mole
-            const specificMole = [...mole];
-            //deal with the mole
-            specificMole[index] = false;
-            setMole(specificMole);
-        }
-        //bros gone
-        else{
-            //needs some logic for 0
-            setLife(f => f -1);
-            if(life < 1){
-                //go to gameEnd.js
-                
+
+    // Check lives
+    if (life > 0) {//moved up here since we dont need all these calls for the end page
+
+        //handle the onPress event
+        const handlePress = (index) => {
+            //mole is there
+            if (mole[index]) {
+                setScore(f => f + 1);
+                //find the mole
+                const specificMole = [...mole];
+                //deal with the mole
+                specificMole[index] = false;
+                setMole(specificMole);
+            }
+            //bros gone
+            else {
+                setLife(f => f - 1);
+                if (life < 1) {
+                }
             }
         }
-    }
 
-    //mole timers
-    function runRandomTimer(param) {
-      for(i = 0; i < param; i++){
+        //mole timers
+        function runRandomTimer(param) {
+            for (i = 0; i < param; i++) {
 
-        //needs a check for already set timers
-      const randomIndex = Math.floor(Math.random() * mole.length);
-          setTimeout(() => {
-              setMole(mole => {
-                  const newMole = [...mole];
-                  newMole[randomIndex] = true;
-                  return newMole;
-              });
+                //needs a check for already set timers
+                const randomIndex = Math.floor(Math.random() * mole.length);
+                setTimeout(() => {
+                    setMole(mole => {
+                        const newMole = [...mole];
+                        newMole[randomIndex] = true;
+                        return newMole;
+                    });
 
-              // Set a timeout to make the mole disappear after a certain time
-              setTimeout(() => {
-                  setMole(mole => {
-                      const newMole = [...mole];
-                      newMole[randomIndex] = false;
-                      runRandomTimer(1);//THIS NEEDS TO BE 1 DONT FUCK WITH IT OR ITLL BREAK THE APP
-                      return newMole;
-                  });
-            
-                  //This is fucking broken cus your dumbass thought - .000000002 would effect the game
-              }, 3000 - (difficulty * 0.1) - (score * 0.1)); //scuffed way of doing difficulty but it works
-          }, Math.floor(Math.random() * 2000) + 1000 - (difficulty * 0.1) - (score * 0.1)); // Random delay for each mole
-  }
-}
+                    // Set a timeout to make the mole disappear after a certain time
+                    setTimeout(() => {
+                        setMole(mole => {
+                            const newMole = [...mole];
+                            newMole[randomIndex] = false;
+                            runRandomTimer(1);//THIS NEEDS TO BE 1 DONT FUCK WITH IT OR ITLL BREAK THE APP
+                            return newMole;
+                        });
 
-// should prolly move this to a saparate file
-// Check lives
-if(life > 0){
-    return (
-        <ImageBackground
-        source={require('../images/background.png')}
-        style={Styles.backgroundImage}
-        >
-        <View style={Styles.container}>
-            {/* Score */}
-            <Text style={Styles.score}>Score: {score}</Text>
-            <Text style={Styles.score}>Life: {life}</Text>
- 
-            <View style={Styles.buttonRow}>
-            {mole.map((mole, index) => (
-          <Pressable
-            key={index}
-            style={Styles.hole}
-            onPress={() => handlePress(index)}
-          >
-            <Image
-            source={mole ? require('../images/mole.png') : require('../images/noMole.png')}
-            style={Styles.moleImage}
-            />
-          </Pressable>))}
-            </View>
-            {/* Linked Buttons */}
-            <View style={Styles.backButton} >
-            <Link href={{
-                pathname: "/",
-                params: {},//maybe do a scoreboard?
-                }} asChild>
-            <Button
-            title='Main Menu'/>
-            </Link>
-            </View>
+                        //This is fucking broken cus your dumbass thought - .000000002 would effect the game
+                    }, 3000 - (difficulty * 0.1) - (score * 0.1)); //scuffed way of doing difficulty but it works
+                }, Math.floor(Math.random() * 2000) + 1000 - (difficulty * 0.1) - (score * 0.1)); // Random delay for each mole
+            }
+        }
 
-            
+        return (
+            <ImageBackground
+                source={require('../images/background.png')}
+                style={Styles.backgroundImage}
+            >
+                <View style={Styles.container}>
+                    {/* Score */}
+                    <Text style={Styles.score}>Score: {score}</Text>
+                    <Text style={Styles.score}>Life: {life}</Text>
 
-        </View>
-        </ImageBackground>
-    )
-  }
-  else {
-    const params = useLocalSearchParams();
-    const {name} = params;
-
-    const leaderboardData = [
-        { name: name, score: score },
-      ];
-
-    return (
-      <ImageBackground
-      source={require('../images/background.png')}
-      style={Styles.backgroundImage}
-      >
-      <View style={Styles.container}>
-          {/* Score */}
-          <Text style={Styles.score}>Score: {score}</Text>
-
-          <Text style={Styles.endText}>Game Over</Text>
-
-                {/* Leaderboard */}
-                <View style={Styles.leaderboardContainer}>
-                    <Text style={Styles.leaderboardTitle}>Leaderboard</Text>
-                    {leaderboardData.map((entry, index) => (
-                        <Text key={index} style={Styles.leaderboardEntry}>
-                            {entry.name}: {entry.score}
-                        </Text>
-                    ))}
+                    <View style={Styles.buttonRow}>
+                        {mole.map((mole, index) => (
+                            <Pressable
+                                key={index}
+                                style={Styles.hole}
+                                onPress={() => handlePress(index)}
+                            >
+                                <Image
+                                    source={mole ? require('../images/mole.png') : require('../images/noMole.png')}
+                                    style={Styles.moleImage}
+                                />
+                            </Pressable>))}
+                    </View>
+                    {/* Linked Buttons */}
+                    <View style={Styles.backButton} >
+                        <Link href={{
+                            pathname: "/",
+                            params: {},
+                        }} asChild>
+                            <Pressable
+                                onPress={() => { }}
+                            >
+                                <Text style={Styles.buttonText}>Main Menu</Text>
+                            </Pressable>
+                        </Link>
+                    </View>
                 </View>
+            </ImageBackground>
+        )
+    }
+    else {
+        const params = useLocalSearchParams();
+        const { name } = params;
 
-          {/* Linked Buttons */}
-          <View style={Styles.backButton} >
-          <Link href={{
-              pathname: "/",
-              params: {},
-              }} asChild>
-          <Button
-          title='Main Menu'/>
-          </Link>
-          </View>
+        const leaderboardData = [
+            { name: name, score: score },
+        ];
 
-      </View>
-      </ImageBackground>
-  )
-  }
+        return (
+            <ImageBackground
+                source={require('../images/background.png')}
+                style={Styles.backgroundImage}
+            >
+                <View style={Styles.container}>
+                    {/* Score */}
+                    <Text style={Styles.score}>Score: {score}</Text>
+
+                    <Text style={Styles.endText}>Game Over</Text>
+
+                    {/* Leaderboard */}
+                    <View style={Styles.leaderboardContainer}>
+                        <Text style={Styles.leaderboardTitle}>Leaderboard</Text>
+                        {leaderboardData.map((entry, index) => (
+                            <Text key={index} style={Styles.leaderboardEntry}>
+                                {entry.name}: {entry.score}
+                            </Text>
+                        ))}
+                    </View>
+
+                    {/* Linked Buttons */}
+                    <View style={Styles.backButton} >
+                        <Link href={{
+                            pathname: "/",
+                            params: {},
+                        }} asChild>
+                            <Pressable
+                                onPress={() => { }}
+                            >
+                                <Text style={Styles.buttonText}>Main Menu</Text>
+                            </Pressable>
+                        </Link>
+                    </View>
+
+                </View>
+            </ImageBackground>
+        )
+    }
 }
 
