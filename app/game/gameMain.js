@@ -1,16 +1,21 @@
 import React, { useState, useEffect } from 'react';
 import Styles from '../styles/gameStyle.js';
 import {Text, View, Button, Pressable, Image, ImageBackground} from 'react-native';
-import { Link, } from 'expo-router';
+import { Link, useLocalSearchParams } from 'expo-router';
 
 
 export default function Page(){
+    //difficulty passed logic
+    const params = useLocalSearchParams();
+    const {difficulty} = params;
+    //console.log(difficulty)
+
     const [score, setScore] = useState(0);
     const [life, setLife ] = useState(3);
     const [ mole, setMole ] = useState(Array(9).fill(false));
         // Run the random timer when the component mounts
         useEffect(() => {
-            runRandomTimer(2);//stub could use this as part of the difficulty
+            runRandomTimer(difficulty);//should spawn based off the diff param
         }, []);
 
     //handle the onPress event
@@ -53,11 +58,11 @@ export default function Page(){
                   setMole(mole => {
                       const newMole = [...mole];
                       newMole[randomIndex] = false;
-                      runRandomTimer(1);//THIS NEEDS TO BE 1
+                      runRandomTimer(1);//THIS NEEDS TO BE 1 DONT FUCK WITH IT OR ITLL BREAK THE APP
                       return newMole;
                   });
-              }, 3000); // This can be adjusted as per your requirement
-          }, Math.floor(Math.random() * 2000) + 1000); // Random delay for each mole
+              }, 3000 - (difficulty * 0.1));
+          }, Math.floor(Math.random() * 2000) + 1000 - (difficulty * 0.1)); // Random delay for each mole
   }
 }
 
@@ -90,7 +95,7 @@ if(life > 0){
             <View style={Styles.backButton} >
             <Link href={{
                 pathname: "/",
-                params: {},
+                params: {},//maybe do a scoreboard?
                 }} asChild>
             <Button
             title='Exit'/>

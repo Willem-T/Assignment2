@@ -41,7 +41,12 @@ const styles = StyleSheet.create({
   moleImage: {
     width: 80,
     height: 80,
-  }
+  },
+  backButton: {
+    width: '40%',
+    position: 'relative',
+    top: 50,
+},
 });
 
 export default styles;
