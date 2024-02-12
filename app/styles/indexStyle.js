@@ -33,9 +33,15 @@ const styles = StyleSheet.create({
         top: 50,
         marginTop: 50,
     },
-    easy: {
-        backgroundColor: 'green',
-    }
+    input: {
+        width: '80%',
+        textAlign: 'center',
+        borderWidth: 2,
+        borderRadius: 10,
+        paddingLeft: 15, 
+        marginTop: 60,
+        backgroundColor: 'rgba(128, 128, 128, 0.5)',
+      },
 });
 
 export default styles;

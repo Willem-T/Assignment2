@@ -10,14 +10,14 @@ TODO:         add params for buttons
               change color of buttons to reflect their titles
               attempt to move logic to its own file
 */ 
-import {Text, View, Button, ImageBackground} from 'react-native';
+import {Text, View, Button, ImageBackground, TextInput} from 'react-native';
 import Styles from './styles/indexStyle.js';
 import { Link,} from 'expo-router';
 import React from 'react';
 
 export default function Page(){
-    //consts for difficulty
-    let difficulty = 0;
+
+    const [name, setName] = React.useState("");
 
     return (
         <ImageBackground
@@ -30,14 +30,20 @@ export default function Page(){
             <Text style={Styles.titleText}>Whack o Mole</Text>
             <Text style={Styles.text}>Hit as many moles as possible without missing or letting them go back into their hole</Text>
 
-
+            {/* players name */}
+            <TextInput 
+                style={Styles.input}
+                onChangeText={setName}
+                value={name}
+                placeholder='Name'    
+            ></TextInput>
 
             {/* Linked Buttons */}
             <View style={Styles.buttonContainer}>
             <Link href={{
                 pathname: "./game/gameMain",
 
-                params: {difficulty: 1},
+                params: {difficulty: 1, name},
                 }} asChild>
             <Button 
             title='Easy'
@@ -50,7 +56,7 @@ export default function Page(){
             <Link href={{
                 pathname: "./game/gameMain",
 
-                params: {difficulty: 2},
+                params: {difficulty: 2, name},
                 }} asChild>
             <Button 
             title='Normal'
@@ -63,7 +69,7 @@ export default function Page(){
             <Link href={{
                 pathname: "./game/gameMain",
 
-                params: {difficulty: 3},
+                params: {difficulty: 3, name},
                 }} asChild>
             <Button 
             title='Hard'
@@ -71,6 +77,7 @@ export default function Page(){
             />
             </Link>
             </View>
+
 
         </View>
         </ImageBackground>

@@ -47,6 +47,26 @@ const styles = StyleSheet.create({
     position: 'relative',
     top: 50,
 },
+  endText: {
+    fontSize: 30,
+    margin: 45,
+  },
+  leaderboardContainer: {
+    alignItems: 'center',
+    marginBottom: 20,
+    backgroundColor: 'rgba(255, 255, 255, 0)',
+    margin: 15,
+  },
+  leaderboardTitle: {
+    fontSize: 35,
+    fontWeight: 'bold',
+    marginBottom: 10,
+  },
+  leaderboardEntry: {
+    fontSize: 20,
+    marginBottom: 5,
+  },
+  
 });
 
 export default styles;

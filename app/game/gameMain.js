@@ -45,7 +45,6 @@ export default function Page(){
 
         //needs a check for already set timers
       const randomIndex = Math.floor(Math.random() * mole.length);
-          // Generate a random timer for each mole
           setTimeout(() => {
               setMole(mole => {
                   const newMole = [...mole];
@@ -66,6 +65,7 @@ export default function Page(){
   }
 }
 
+// should prolly move this to a saparate file
 // Check lives
 if(life > 0){
     return (
@@ -98,15 +98,28 @@ if(life > 0){
                 params: {},//maybe do a scoreboard?
                 }} asChild>
             <Button
-            title='Exit'/>
+            title='Main Menu'/>
             </Link>
             </View>
+
+            
 
         </View>
         </ImageBackground>
     )
   }
   else {
+    const params = useLocalSearchParams();
+    const {name} = params;
+
+    const leaderboardData = [
+        { name: name, score: score },
+        { name: 'Player 2', score: 800 },
+        { name: 'Player 3', score: 600 },
+        { name: 'Player 4', score: 400 },
+        { name: 'Player 5', score: 200 },
+      ];
+
     return (
       <ImageBackground
       source={require('../images/background.png')}
@@ -116,7 +129,18 @@ if(life > 0){
           {/* Score */}
           <Text style={Styles.score}>Score: {score}</Text>
 
-          <Text>Game Over</Text>
+          <Text style={Styles.endText}>Game Over</Text>
+
+                {/* Leaderboard */}
+                <View style={Styles.leaderboardContainer}>
+                    <Text style={Styles.leaderboardTitle}>Leaderboard</Text>
+                    {leaderboardData.map((entry, index) => (
+                        <Text key={index} style={Styles.leaderboardEntry}>
+                            {entry.name}: {entry.score}
+                        </Text>
+                    ))}
+                </View>
+
           {/* Linked Buttons */}
           <View style={Styles.backButton} >
           <Link href={{
@@ -124,7 +148,7 @@ if(life > 0){
               params: {},
               }} asChild>
           <Button
-          title='Go Back'/>
+          title='Main Menu'/>
           </Link>
           </View>
 
