@@ -32,6 +32,12 @@ const styles = StyleSheet.create({
         width: '40%',
         top: 50,
         marginTop: 50,
+        alignItems: 'center',
+        justifyContent: 'center',
+        paddingVertical: 12,
+        paddingHorizontal: 32,
+        borderRadius: 10, 
+        elevation: 2,
     },
     input: {
         width: '80%',
@@ -42,6 +48,24 @@ const styles = StyleSheet.create({
         marginTop: 60,
         backgroundColor: 'rgba(255, 255, 255, 0.5)',
       },
+      buttonText: {
+        fontSize: 20,
+        textAlign: 'center',
+        color: 'white',
+        fontWeight: 'bold',
+        textShadowColor: 'rgba(0, 0, 0, 0.5)',
+        textShadowOffset: { width: 2, height: 2 },
+        textShadowRadius: 5,
+      },
+    easy: {
+        backgroundColor: 'green', 
+    },
+    normal: {
+        backgroundColor: 'orange', 
+    },
+    hard: {
+        backgroundColor: 'red', 
+    },
 });
 
 export default styles;
