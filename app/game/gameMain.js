@@ -61,6 +61,8 @@ export default function Page(){
                       runRandomTimer(1);//THIS NEEDS TO BE 1 DONT FUCK WITH IT OR ITLL BREAK THE APP
                       return newMole;
                   });
+            
+                  //This is fucking broken cus your dumbass thought - .000000002 would effect the game
               }, 3000 - (difficulty * 0.1) - (score * 0.1)); //scuffed way of doing difficulty but it works
           }, Math.floor(Math.random() * 2000) + 1000 - (difficulty * 0.1) - (score * 0.1)); // Random delay for each mole
   }
@@ -115,10 +117,6 @@ if(life > 0){
 
     const leaderboardData = [
         { name: name, score: score },
-        { name: 'Player 2', score: 800 },
-        { name: 'Player 3', score: 600 },
-        { name: 'Player 4', score: 400 },
-        { name: 'Player 5', score: 200 },
       ];
 
     return (

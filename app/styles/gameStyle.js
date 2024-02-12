@@ -54,7 +54,7 @@ const styles = StyleSheet.create({
   leaderboardContainer: {
     alignItems: 'center',
     marginBottom: 20,
-    backgroundColor: 'rgba(255, 255, 255, 0)',
+    backgroundColor: 'rgba(255, 255, 255, 0.5)',
     margin: 15,
   },
   leaderboardTitle: {
