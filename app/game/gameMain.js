@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import Styles from '../styles/gameStyle.js';
-import { Text, View, Button, Pressable, Image, ImageBackground } from 'react-native';
+import { Text, View, Pressable, Image, ImageBackground } from 'react-native';
 import { Link, useLocalSearchParams } from 'expo-router';
 
 
@@ -8,7 +8,6 @@ export default function Page() {
     //difficulty passed logic
     const params = useLocalSearchParams();
     const { difficulty } = params;
-    //console.log(difficulty)
 
     const [score, setScore] = useState(0);
     const [life, setLife] = useState(3);
@@ -63,9 +62,8 @@ export default function Page() {
                             return newMole;
                         });
 
-                        //This is fucking broken cus your dumbass thought - .000000002 would effect the game
-                    }, 3000 - (difficulty * 0.1) - (score * 0.1)); //scuffed way of doing difficulty but it works
-                }, Math.floor(Math.random() * 2000) + 1000 - (difficulty * 0.1) - (score * 0.1)); // Random delay for each mole
+                    }, 3000 - (difficulty *  (score * 10))); //scuffed way of doing difficulty but it works
+                }, Math.floor(Math.random() * 2000 - (difficulty * (score * 10))) + 1000 - (difficulty * (score * 10))); // Random delay for each mole
             }
         }
 

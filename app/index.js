@@ -7,7 +7,7 @@ TODO:
               debug timers so you can subtract life or score(prolly score)
               attempt to move logic to its own file
               background is doing wierd shit when the keyboard is pulled up so fix that
-              fix the pressable hitboxes 
+              leaderboard only shows the current player(prolly needs a full rework)
 */ 
 import {Text, View, ImageBackground, TextInput, Pressable} from 'react-native';
 import Styles from './styles/indexStyle.js';
@@ -17,6 +17,7 @@ import React from 'react';
 export default function Page(){
 
     const [name, setName] = React.useState("");
+
 
     return (
         <ImageBackground

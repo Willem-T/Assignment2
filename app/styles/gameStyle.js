@@ -112,6 +112,8 @@ const styles = StyleSheet.create({
     textShadowColor: 'rgba(0, 0, 0, 0.5)',
     textShadowOffset: { width: 2, height: 2 },
     textShadowRadius: 5,
+    minWidth: '160%',//seems to be the only way to get the pressable erea to expand
+    minHeight: '2%',
   },
   
 });

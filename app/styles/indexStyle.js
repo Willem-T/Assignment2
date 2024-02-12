@@ -51,12 +51,15 @@ const styles = StyleSheet.create({
       },
       buttonText: {
         fontSize: 20,
+        minWidth: '160%',//seems to be the only way to get the pressable erea to expand
+        minHeight: '2%',
         textAlign: 'center',
         color: 'white',
         fontWeight: 'bold',
         textShadowColor: 'rgba(0, 0, 0, 0.5)',
         textShadowOffset: { width: 2, height: 2 },
         textShadowRadius: 5,
+        //backgroundColor: 'white',//for debugging
       },
     easy: {
         backgroundColor: 'green', 
