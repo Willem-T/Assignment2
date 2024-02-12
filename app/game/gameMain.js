@@ -61,8 +61,8 @@ export default function Page(){
                       runRandomTimer(1);//THIS NEEDS TO BE 1 DONT FUCK WITH IT OR ITLL BREAK THE APP
                       return newMole;
                   });
-              }, 3000 - (difficulty * 0.1));
-          }, Math.floor(Math.random() * 2000) + 1000 - (difficulty * 0.1)); // Random delay for each mole
+              }, 3000 - (difficulty * 0.1) - (score * 0.1)); //scuffed way of doing difficulty but it works
+          }, Math.floor(Math.random() * 2000) + 1000 - (difficulty * 0.1) - (score * 0.1)); // Random delay for each mole
   }
 }
 

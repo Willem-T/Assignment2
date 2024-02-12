@@ -33,8 +33,9 @@ const styles = StyleSheet.create({
         top: 50,
         marginTop: 50,
     },
-    easy: [
-    ]
+    easy: {
+        backgroundColor: 'green',
+    }
 });
 
 export default styles;
