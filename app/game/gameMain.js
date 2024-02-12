@@ -40,6 +40,7 @@ export default function Page(){
         }
     }
 
+    //mole timers
     function runRandomTimer(param) {
       for(i = 0; i < param; i++){
 
